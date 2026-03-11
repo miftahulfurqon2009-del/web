@@ -172,7 +172,7 @@ animation:fall 4s linear forwards;
 
 <body>
 
-<audio autoplay loop>
+<audio id="bgMusic" loop hidden>
 <source src="Budi Doremi - Ada Untukmu.mp3" type="audio/mpeg">
 </audio>
 
@@ -298,6 +298,18 @@ setTimeout(()=>heart.remove(),5000);
 }
 
 }
+
+/* ================= AUTOPLAY MUSIC ================= */
+
+const music = document.getElementById("bgMusic");
+
+function playMusic(){
+music.play().catch(()=>{});
+}
+
+window.addEventListener("load", playMusic);
+document.addEventListener("click", playMusic);
+document.addEventListener("touchstart", playMusic);
 
 </script>
 
