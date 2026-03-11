@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Fira ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:'Poppins',sans-serif;
+background:radial-gradient(circle at top,#ff6a88,#ff99ac,#ffd1dc);
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+/* ================= HEART BACKGROUND ================= */
+#heartsBg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+.bgHeart{
+position:absolute;
+color:rgba(255,255,255,0.4);
+animation:floatHeart linear infinite;
+}
+
+@keyframes floatHeart{
+0%{
+transform:translateY(110vh) scale(0.8);
+opacity:0;
+}
+
+20%{opacity:1}
+
+100%{
+transform:translateY(-10vh) scale(1.2);
+opacity:0;
+}
+}
+
+/* ================= CARD ================= */
+.card{
+width:450px;
+padding:45px;
+text-align:center;
+background:rgba(255,255,255,0.2);
+backdrop-filter:blur(15px);
+border-radius:25px;
+box-shadow:0 25px 70px rgba(0,0,0,0.35);
+animation:fadeUp 1.4s ease;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+h1{
+font-family:'Playfair Display',serif;
+font-size:36px;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:15px;
+opacity:.9;
+margin-bottom:20px;
+}
+
+/* FOTO */
+.photo{
+width:170px;
+height:170px;
+border-radius:50%;
+object-fit:cover;
+border:5px solid white;
+margin:15px 0;
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+
+#typing{
+font-size:17px;
+min-height:60px;
+line-height:1.6;
+}
+
+.question{
+margin-top:18px;
+font-size:20px;
+font-weight:600;
+}
+
+/* BUTTON */
+.buttons{margin-top:22px}
+
+button{
+padding:12px 26px;
+border:none;
+border-radius:14px;
+font-size:16px;
+cursor:pointer;
+margin:6px;
+font-weight:600;
+transition:.25s;
+}
+
+button:hover{transform:scale(1.1)}
+
+.yes{
+background:linear-gradient(45deg,#ff3d6e,#ff7aa2);
+color:white;
+}
+
+.no{
+background:white;
+color:#ff3d6e;
+}
+
+.storyBtn{
+margin-top:12px;
+background:transparent;
+border:1px solid rgba(255,255,255,.7);
+color:white;
+}
+
+/* STORY */
+#story{
+margin-top:18px;
+font-size:15px;
+line-height:1.7;
+max-height:0;
+overflow:hidden;
+transition:.6s;
+}
+
+#story.show{max-height:300px}
+
+#result{
+margin-top:20px;
+font-size:20px;
+font-weight:600;
+}
+
+/* HEART RAIN */
+.heart{
+position:fixed;
+font-size:20px;
+animation:fall 4s linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-20px);opacity:1}
+100%{transform:translateY(110vh);opacity:0}
+}
+
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="Budi Doremi - Ada Untukmu.mp3" type="audio/mpeg">
+</audio>
+
+<div id="heartsBg"></div>
+
+<div class="card">
+
+<h1>Hai Fira ❤️</h1>
+<div class="subtitle">Ada sesuatu yang mau aku bilang...</div>
+
+<img class="photo" src="fira.jpeg" alt="Fira">
+
+<div id="typing"></div>
+
+<div class="question">Fira, mau nggak jadi pacarku?</div>
+
+<div class="buttons">
+<button class="yes" onclick="acceptLove()">Mau ❤️</button>
+<button class="no" id="noBtn">Tidak</button>
+</div>
+
+<button class="storyBtn" onclick="toggleStory()">Kenapa aku Suka kamu?</button>
+
+<div id="story">
+
+<p>Dari pertama kali aku kenal kamu, ada sesuatu yang bikin aku selalu inget kamu.</p>
+<p>Cara kamu ngetreat, cara kamu tengil yang tak bisa aku lupa, dan cara kamu jadi diri kamu sendiri.</p>
+<p>Mungkin ini cuma website kecil, tapi aku bikin ini khusus cuma buat kamu.</p>
+<p><b>Aku harap kamu mau jadi bagian dari hidupku❤️</b></p>
+
+</div>
+
+<div id="result"></div>
+
+<script>
+
+/* ================= HEART BACKGROUND ================= */
+
+const heartsBg=document.getElementById("heartsBg");
+
+for(let i=0;i<80;i++){
+
+const heart=document.createElement("div");
+heart.className="bgHeart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*60+20)+"px";
+heart.style.animationDuration=(Math.random()*10+10)+"s";
+heart.style.animationDelay=Math.random()*5+"s";
+
+heartsBg.appendChild(heart);
+
+}
+
+/* ================= TYPING TEXT ================= */
+
+const text="Sejak kenal kamu, hari aku selalu terasa lebih seru.";
+
+let i=0;
+
+function typing(){
+
+if(i<text.length){
+
+document.getElementById("typing").innerHTML+=text.charAt(i);
+
+i++;
+
+setTimeout(typing,40);
+
+}
+
+}
+
+setTimeout(typing,700);
+
+/* ================= BUTTON NO ESCAPE ================= */
+
+const noBtn=document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover",()=>{
+
+const x=Math.random()*260-130;
+const y=Math.random()*200-100;
+
+noBtn.style.transform=`translate(${x}px,${y}px)`;
+
+});
+
+/* ================= STORY ================= */
+
+function toggleStory(){
+
+const story=document.getElementById("story");
+
+story.classList.toggle("show");
+
+}
+
+/* ================= ACCEPT LOVE ================= */
+
+function acceptLove(){
+
+const result=document.getElementById("result");
+
+result.innerHTML="❤️ Yeay! Sekarang Fira pacarnyakuu ❤️";
+
+for(let i=0;i<70;i++){
+
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*25+15)+"px";
+heart.style.animationDuration=(Math.random()*3+3)+"s";
+
+ document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),5000);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
